@@ -33,7 +33,7 @@ colnames(q4_2019)
 # Rename columns  to make them consistent with q4_2019 (as this will be the supposed going-forward table design for Divvy)
 
 (q3_2019 <- rename(q3_2019
-                   ,ride_id = trip_id
+                   ,ride_id = trip_id 
                    ,rideable_type = bikeid 
                    ,started_at = start_time  
                    ,ended_at = end_time  
@@ -43,26 +43,26 @@ colnames(q4_2019)
                    ,end_station_id = to_station_id 
                    ,member_casual = usertype))
 (q2_2019 <- rename(q2_2019
-                   ,ride_id = "01 - Rental Details Rental ID"
-                   ,rideable_type = "01 - Rental Details Bike ID" 
-                   ,started_at = "01 - Rental Details Local Start Time"  
-                   ,ended_at = "01 - Rental Details Local End Time"  
-                   ,start_station_name = "03 - Rental Start Station Name" 
-                   ,start_station_id = "03 - Rental Start Station ID"
-                   ,end_station_name = "02 - Rental End Station Name" 
-                   ,end_station_id = "02 - Rental End Station ID"
-                   ,member_casual = "User Type"))
+                   ,ride_id = ride_id
+                   ,rideable_type = rideable_type 
+                   ,started_at = started_at  
+                   ,ended_at = ended_at  
+                   ,start_station_name = start_station_name 
+                   ,start_station_id = start_station_id
+                   ,end_station_name = end_station_name 
+                   ,end_station_id = end_station_id
+                   ,member_casual = member_casual))
 
 (q1_2019 <- rename(q1_2019
-                   ,ride_id = trip_id
-                   ,rideable_type = bikeid 
-                   ,started_at = start_time  
-                   ,ended_at = end_time  
-                   ,start_station_name = from_station_name 
-                   ,start_station_id = from_station_id 
-                   ,end_station_name = to_station_name 
-                   ,end_station_id = to_station_id 
-                   ,member_casual = usertype))
+                   ,ride_id = ride_id
+                   ,rideable_type = rideable_type
+                   ,started_at = started_at  
+                   ,ended_at = ended_at  
+                   ,start_station_name = start_station_name 
+                   ,start_station_id = start_station_id 
+                   ,end_station_name = end_station_name 
+                   ,end_station_id = end_station_id 
+                   ,member_casual = member_casual))
 
 # Inspect the dataframes and look for incongruencies
 str(q1_2019)
@@ -80,4 +80,6 @@ q2_2019 <-  mutate(q2_2019, ride_id = as.character(ride_id)
 q1_2019 <-  mutate(q1_2019, ride_id = as.character(ride_id)
                    ,rideable_type = as.character(rideable_type)) 
 
+# Stack individual quarter's data frames into one big data frame
+all_trips <- bind_rows(q2_2019, q3_2019, q4_2019, q1_2020)
 
